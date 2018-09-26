@@ -1,0 +1,181 @@
+---
+
+---
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+    <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0 auto;
+      padding: 2.4rem 0.8rem 1.6rem;
+      width: 100%;
+      max-width: 40rem;
+      color: #2C2D30;
+    }
+
+    footer {
+      border-top: 1px solid #666666;
+      color: #666666;
+      padding-top: 1rem;
+      font-size: 0.8rem;
+      text-align: center;
+    }
+
+    :focus {
+      outline: 1px solid #FED204;
+    }
+
+    #books .list {
+      padding: 0;
+      margin: 2.4rem 0 3.2rem;
+      list-style-type: none;
+    }
+
+    #books .list li {
+      margin-bottom: 2.4rem;
+    }
+
+    #books .list h3 {
+      margin: 0.8rem 0 0.8rem;
+      font-weight: normal;
+    }
+
+    #books .list p {
+      margin: 0.8rem 0;
+    }
+
+    #books .list .category {
+      margin: 0;
+    }
+
+    #books .list .category-item {
+      font-size: 0.8rem;
+      padding: calc(0.1rem - 2px) 0.3rem;
+      border-radius: 2px;
+
+      color: #888888;
+      border: 1px solid #AAAAAA;
+    }
+
+    a {
+      text-decoration: none;
+      color: #0676B9;
+    }
+    a:visited {
+      color: #0676B9;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
+    @media screen and (max-width: 40rem) {
+      h1 {
+        font-size: 1.2rem;
+        margin: 0.8rem 0 0.8rem 0.05rem;
+      }
+
+      h3 {
+        font-size: 1.2rem;
+      }
+
+      #books .search-box {
+        margin: -2rem -1rem 2rem;
+
+        padding: 1.6rem 0.8rem;
+        background-color: #FED204;
+      }
+
+      #books input.search {
+        width: 100%;
+        padding: 0.5rem;
+      }
+    }
+    @media screen and (min-width: 40rem) {
+      h1 {
+        font-size: 1.5rem;
+        margin: 0.5rem 0 0.5rem 0.05rem;
+      }
+
+      h3 {
+        font-size: 1.5rem;
+      }
+
+      #books .search-box {
+        margin: 2.4rem 0 3.2rem;
+      }
+
+      #books .search {
+        width: 100%;
+        padding: 0.5rem;
+        line-height: 1rem;
+        height: calc(2rem + 4px);
+        border: 2px solid #FED204;
+      }
+    }
+    </style>
+
+    <title>{{ site.title }}</title>
+    <meta name="description" content="{{ site.description }}" />
+
+  </head>
+  <body>
+    <div id="books">
+      <div class="search-box">
+        <h1>카페 두잉 책검색</h1>
+
+        <input class="search" placeholder="검색어를 입력하세요" />
+      </div>
+
+      <!--
+      <button class="sort" data-sort="title">제목</button>
+      <button class="sort" data-sort="publisher">출판사</button>
+      -->
+
+      <ul class="list">
+        {% for book in site.data.books %}
+        <li>
+          <p class="category">
+            <span class="category-item">{{ book.category }}</span>
+          </p>
+          <h3 class="title">
+            {% if book.doings_choice %}
+              <a href="{{ book.doings_choice }}" target="_blank">{{ book.title }}</a>
+            {% else %}
+              {{ book.title }}
+            {% endif %}
+          </h3>
+          <p>
+            {% if book.author %}
+            <span class="author">{{ book.author }}</span>
+            {% else %}
+            <span class="author">작가 정보 없음</span>
+            {% endif %}
+
+            {% if book.publisher %}
+            (<span class="publisher">{{ book.publisher }}</span>)
+            {% endif %}
+          </p>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <footer>
+      <p>이 사이트는 &lt;페미니즘 카페 두잉&gt;에서 공식적으로 운영하는 사이트가 아닙니다.</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+    <script>
+    var hackerList = new List('books', {
+      valueNames: ['title', 'author', 'publisher']
+    });
+    </script>
+  </body>
+</html>
