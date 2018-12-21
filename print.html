@@ -1,0 +1,103 @@
+---
+
+---
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            width: 100%;
+        }
+
+        h2 {
+            margin: 2em 0 0.5em;
+        }
+
+        table {
+            width: 100%;
+        }
+        table th {
+            text-align: left;
+        }
+        table td {
+            vertical-align: top;
+        }
+        table .title {
+            width: calc(100% - 20em);
+        }
+        table .author {
+            width: 10em;
+        }
+        table .publisher {
+            width: 10em;
+        }
+        table tbody tr:nth-child(odd) {
+            background-color: #EEE;
+        }
+    </style>
+    <title>{{ site.title }}</title>
+    <meta name="description" content="{{ site.description }}"/>
+    <script id="books" type="json">{{ site.data.books | jsonify }}</script>
+    <script src="//d3js.org/d3.v5.min.js"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script>
+    (function () {
+        var books = JSON.parse(document.querySelector('#books').textContent)
+            .filter(function (d) {
+                return d.title;
+            });
+        var groups = d3.nest()
+            .key(function (d) {
+                return d.category;
+            })
+            .entries(books)
+            .sort(function (a, b) {
+                return d3.ascending(sortKey(a.key), sortKey(b.key));
+            });
+
+        var groupSel = d3.select('#root').selectAll('div.category').data(groups)
+            .enter()
+            .append('div')
+            .attr('class', 'category')
+            .html(function (d) {
+                return (
+                    "<h2>" + d.key + "</h2>" +
+                    "<table><thead><tr>" +
+                    "<th class='title'>제목</th>" +
+                    "<th class='author'>저자</th>" +
+                    "<th class='publisher'>출판사</th>" +
+                    "</tr></thead>" +
+                    "<tbody></tbody></table>"
+                )
+            })
+        groupSel.select('tbody').selectAll('tr').data(function (d) {return d.values;})
+            .enter()
+            .append('tr')
+            .each(function (d) {
+                this.innerHTML =
+                    "<td class='title'>" + d.title + "</td>" +
+                    "<td class='author'>" + (d.authors || '') + " </td>" +
+                    "<td class='publisher'>" + (d.publisher || '') + "</td>"
+            })
+
+        function sortKey(k) {
+            if (k === '페미니즘 일반') return '0-' + k
+            if (k.startsWith('페미니')) return '1-' + k
+            return '2-' + k
+        }
+    })();
+</script>
+</body>
+</html>
