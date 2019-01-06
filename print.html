@@ -37,7 +37,7 @@
         }
         table .title {
         }
-        table .author {
+        table .authors {
             width: 25%;
         }
         table .publisher {
@@ -79,7 +79,7 @@
                     "<h2>" + d.key + "</h2>" +
                     "<table><thead><tr>" +
                     "<th class='title'>제목</th>" +
-                    "<th class='author'>저자</th>" +
+                    "<th class='authors'>저자</th>" +
                     "<th class='publisher'>출판사</th>" +
                     "</tr></thead>" +
                     "<tbody></tbody></table>"
@@ -91,7 +91,7 @@
             .each(function (d) {
                 this.innerHTML =
                     "<td class='title'>" + d.title + "</td>" +
-                    "<td class='author'>" + (d.authors || '') + " </td>" +
+                    "<td class='authors'>" + (d.authors || '') + " </td>" +
                     "<td class='publisher'>" + (d.publisher || '') + "</td>"
             })
 

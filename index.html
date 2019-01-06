@@ -147,10 +147,10 @@
             {% endif %}
           </h3>
           <p>
-            {% if book.author %}
-            <span class="author">{{ book.author }}</span>
+            {% if book.authors %}
+            <span class="authors">{{ book.authors }}</span>
             {% else %}
-            <span class="author">작가 정보 없음</span>
+            <span class="authors">작가 정보 없음</span>
             {% endif %}
 
             {% if book.publisher %}
@@ -169,7 +169,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
     <script>
     var hackerList = new List('books', {
-      valueNames: ['title', 'author', 'publisher']
+      valueNames: ['title', 'authors', 'publisher']
     });
     </script>
   </body>
