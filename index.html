@@ -3,174 +3,232 @@
 ---
 <!DOCTYPE html>
 <html lang="ko" dir="ltr">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
     <style>
-    * {
-      box-sizing: border-box;
-    }
+        * {
+            box-sizing: border-box;
+        }
 
-    body {
-      margin: 0;
-      width: 100%;
-      color: #2C2D30;
-    }
+        html {
+          font-size: 16px;
+        }
 
-    footer {
-      border-top: 1px solid #666666;
-      color: #666666;
-      padding-top: 1rem;
-      font-size: 0.8rem;
-      text-align: center;
-    }
+        body {
+            margin: 0;
+            width: 100%;
+        }
 
-    :focus {
-      outline: 1px solid #FED204;
-    }
+        a {
+            color: #1873e8;
+            text-decoration: none;
+        }
+        a:visited {
+            color: #1873e8;
+        }
 
-    #books .search-box {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      margin: 0 0 2rem 0;
-      padding: 1.6rem 0.8rem;
-      background-color: #FED204;
-    }
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem 0.8rem;
+            background-color: #FED204;
+        }
 
-    #books input.search {
-      display: block;
-      margin: 0 auto;
-      width: 100%;
-      max-width: 40rem;
+        header h1 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.5rem;
+        }
 
-      border-width: 0;
-      border-radius: 0;
-      padding: 0.5rem;
-    }
+        header form {
+            display: block;
+            margin: 0 auto;
+            padding: 0;
+            width: 100%;
+            max-width: 40rem;
+        }
 
-    #books .list {
-      padding: 0;
-      margin: 10rem auto 0;
-      max-width: 40rem;
-      list-style-type: none;
-    }
+        header #search {
+            display: block;
+            margin: 0 auto 0.5rem;
+            width: 100%;
+            border-radius: 0;
+        }
 
-    #books .list li {
-      margin-bottom: 2.4rem;
-      padding: 0 1rem;
-    }
+        header .group-options label {
+            margin-right: 0.5rem;
+        }
 
-    #books .list h3 {
-      margin: 0.8rem 0 0.8rem;
-      font-weight: normal;
-    }
+        header #jump {
+            border-radius: 0;
+            width: 10rem;
+        }
 
-    #books .list p {
-      margin: 0.8rem 0;
-    }
+        main {
+            position: fixed;
+            top: 8rem;
+            left: 0;
+            right: 0;
+            bottom: 0;
 
-    #books .list .category {
-      margin: 0;
-    }
+            padding: 1rem 0.8rem;
+            margin: 0 auto;
+            max-width: 40rem;
 
-    #books .list .category-item {
-      font-size: 0.8rem;
-      padding: calc(0.1rem - 2px) 0.3rem;
-      border-radius: 2px;
+            overflow-y: scroll;
+            -webkit-overflow-scrolling: touch;
+        }
 
-      color: #888888;
-      border: 1px solid #AAAAAA;
-    }
+        main .group {
+            margin-bottom: 4rem;
+        }
+        main .group h2 {
+            font-size: 1.5rem;
+            margin: 0 0 1rem;
+        }
+        main .group h2 a {
+            font-size: 1rem;
+        }
 
-    a {
-      text-decoration: none;
-      color: #0676B9;
-    }
-    a:visited {
-      color: #0676B9;
-    }
-    a:hover {
-      text-decoration: underline;
-    }
-
-    h1 {
-      font-size: 1.2rem;
-      margin: 0.8rem auto;
-      width: 100%;
-      max-width: 40rem;
-    }
-
-    h3 {
-      font-size: 1.2rem;
-    }
+        main .books {
+            padding: 0;
+            list-style-type: none;
+        }
+        main .book {
+            margin-bottom: 2rem;
+        }
+        main .book .category {
+            display: inline-block;
+            line-height: 0.8rem;
+            font-size: 0.8rem;
+            color: #888888;
+            padding: 2px 4px;
+            margin-bottom: 0.5rem;
+            border-radius: 3px;
+            border: 1px solid #AAAAAA;
+        }
+        main.category .book .category {
+            display: none;
+        }
+        main .book h3 {
+            font-weight: normal;
+            font-size: 1rem;
+            margin: 0 0 0.5rem 0;
+        }
+        main .book .authors,
+        main .book .publisher {
+            margin-bottom: 0.5rem;
+        }
     </style>
-
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-TPCDLP3');</script>
-    <!-- End Google Tag Manager -->
-
     <title>{{ site.title }}</title>
-    <meta name="description" content="{{ site.description }}" />
+    <meta name="description" content="{{ site.description }}"/>
+    <script id="books" type="json">{{ site.data.books | jsonify }}</script>
+    <script src="//d3js.org/d3.v5.min.js"></script>
+</head>
+<body>
 
-  </head>
-  <body>
-    <div id="books">
-      <div class="search-box">
-        <h1>카페 두잉 책검색</h1>
+<header>
+    <form onsubmit="return false;">
+        <h1>카페두잉 책검색</h1>
 
-        <input class="search" autofocus placeholder="검색어를 입력하세요" />
-      </div>
+        <input type="text" id="search" placeholder="제목이나 저자로 검색">
 
-      <!--
-      <button class="sort" data-sort="title">제목</button>
-      <button class="sort" data-sort="publisher">출판사</button>
-      -->
+        <div class="group-options">
+            <input type="radio" name="group" id="groupByCategory" value="category" checked>
+            <label for="groupByCategory">분야별</label>
 
-      <ul class="list">
-        {% for book in site.data.books %}
-        <li>
-          <p class="category">
-            <span class="category-item">{{ book.category }}</span>
-          </p>
-          <h3 class="title">
-            {% if book.doings_choice %}
-              <a href="{{ book.doings_choice }}" target="_blank">{{ book.title }}</a>
-            {% else %}
-              {{ book.title }}
-            {% endif %}
-          </h3>
-          <p>
-            {% if book.authors %}
-            <span class="authors">{{ book.authors }}</span>
-            {% else %}
-            <span class="authors">작가 정보 없음</span>
-            {% endif %}
+            <input type="radio" name="group" id="groupByTitle" value="title">
+            <label for="groupByTitle">제목별</label>
 
-            {% if book.publisher %}
-            (<span class="publisher">{{ book.publisher }}</span>)
-            {% endif %}
-          </p>
-        </li>
-        {% endfor %}
-      </ul>
-    </div>
+            <select id="jump"></select>
+        </div>
+    </form>
+</header>
 
-    <footer>
-      <p>이 사이트는 &lt;페미니즘 카페 두잉&gt;에서 공식적으로 운영하는 사이트가 아닙니다.</p>
-    </footer>
+<main id="root"></main>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
-    <script>
-    var hackerList = new List('books', {
-      valueNames: ['title', 'authors', 'publisher']
+<script>
+    var cfgs = {
+        category: {
+            className: 'category',
+            group: function(book) {return book.category;},
+            sortKey: function(key) {return (key.startsWith('페미니즘 일반') ? '0_' : key.startsWith('페미니') ? '1_' : '2_') + key;}
+        },
+        title: {
+            className: 'title',
+            group: function(book) {
+                var letter = book.title[0].toUpperCase();
+                return '가' <= letter && letter <= '힣' ?
+                    "가까나다따라마바빠사사아자짜차카타파하"[(letter.charCodeAt(0) - 0xAC00) / 28 / 21|0] :
+                    letter;
+            },
+            sortKey: String
+        }
+    };
+
+    var cfg = cfgs[document.querySelector('[name="group"][checked]').value];
+    var books = JSON.parse(document.querySelector('#books').textContent).filter(function (d) {return d.title;});
+    var search = '';
+
+    function update() {
+
+        var groups = d3.nest()
+            .key(function (d) {return cfg.group(d);})
+            .entries(search ?
+                books.filter(function(book) {
+                    return book.title.indexOf(search) !== -1 || (book.authors || '').indexOf(search) !== -1
+                }) :
+                books
+            )
+            .sort(function(a, b) {return d3.ascending(cfg.sortKey(a.key), cfg.sortKey(b.key));});
+
+        // Update class
+        document.querySelector('main').setAttribute('class', cfg.className)
+
+        // Update "jump" options
+        document.querySelector('#jump').innerHTML = 
+            '<option value="">바로가기...' +
+            groups.map(function(d, i) {return '<option value=' + i + '>' + d.key;}).join('');
+
+        // Update books
+        var sb = [];
+        for(var i = 0; i < groups.length; i++) {
+            var group = groups[i];
+            var values = group.values;
+            sb.push('<section class="group"><h2>' + group.key + ' <a name="group' + i + '" href="#group' + i + '">#</a></h2><ol class="books">');
+            for(var j = 0; j < values.length; j++) {
+                var book = values[j];
+                sb.push(
+                    '<li class="book">' +
+                    '<div class="category">' + book.category + '</div>' +
+                    '<h3 class="title"><a href="' + book.link + '" target="_blank">' + book.title + '</a></h3>' +
+                    '<div class="authors">' + (book.authors || '') + '</div>' +
+                    '<div class="publisher">' + (book.publisher || '') + '</div>' +
+                    '</li>'
+                );
+            }
+            sb.push('</ol></section>');
+        }
+        document.querySelector('#root').innerHTML = sb.join('');
+    }
+
+    d3.select('#search').on('keyup', function() {
+        search = this.value;
+        update();
     });
-    </script>
-  </body>
+    d3.selectAll('[name="group"]').on('click', function() {
+        cfg = cfgs[this.value];
+        update();
+    });
+    d3.select('#jump').on('change', function() {
+        location.href = '#group' + this.value;
+    })
+
+    update();
+</script>
+</body>
 </html>
