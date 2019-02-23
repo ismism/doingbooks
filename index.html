@@ -175,7 +175,6 @@
     var search = '';
 
     function update() {
-
         var groups = d3.nest()
             .key(function (d) {return cfg.group(d);})
             .entries(search ?
@@ -216,20 +215,21 @@
         document.querySelector('#root').innerHTML = sb.join('');
     }
 
-    d3.select('#search').on('keyup', function() {
-        search = this.value;
-        update();
-    });
-    d3.selectAll('[name="group"]').on('click', function() {
-        cfg = cfgs[this.value];
-        update();
-    });
-    d3.select('#jump').on('change', function() {
-        location.href = '#group' + this.value;
-    })
+    document.addEventListener('DOMContentLoaded', function() {
+        d3.select('#search').on('keyup', function() {
+            search = this.value;
+            update();
+        });
+        d3.selectAll('[name="group"]').on('click', function() {
+            cfg = cfgs[this.value];
+            update();
+        });
+        d3.select('#jump').on('change', function() {
+            location.href = '#group' + this.value;
+        });
 
-    update();
+        update();
+    });
 </script>
 </body>
 </html>
-s
