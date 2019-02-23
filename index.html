@@ -156,7 +156,7 @@
         category: {
             className: 'category',
             group: function(book) {return book.category;},
-            sortKey: function(key) {return (key.startsWith('페미니즘 일반') ? '0_' : key.startsWith('페미니') ? '1_' : '2_') + key;}
+            sortKey: function(key) {return (key.indexOf('페미니즘 일반') === 0 ? '0_' : key.indexOf('페미니') === 0 ? '1_' : '2_') + key;}
         },
         title: {
             className: 'title',
